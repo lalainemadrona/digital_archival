@@ -1,3 +1,7 @@
+<?php
+  include "../../include/autoloader_inc.php";
+  // include "../../controllers/college_cont.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,7 +113,6 @@
         </div>
       
         <section class="content-wrapper" id="content-wrapper">
-
             <div class="navlink col-sm mx-1  rounded">
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb py-2">
@@ -149,7 +152,12 @@
                   </div>
                 </div>
                 <div class="MFO_Table table-responsive-md row mt-3  mx-2">
-                            <table class="table table-striped table-bordered border-white" id="">
+                <?php
+                 
+                 $collegeObj = new CollegesView();
+                 $collegeObj->showCollege("BU College of Education");
+                ?>
+                            <!-- <table class="table table-striped table-bordered border-white" id="">
                                 <thead>
                                     <tr>
                                         <th>#id</th>
@@ -157,12 +165,12 @@
                                         <th>Actions</th> 
                                     </tr>
                                 </thead>
-                           <tbody>
+                              <tbody>
                                 <tr class="1">
                                         <td></td>
                                         <td></td>
                                         <td>
-                                            <!-- <div class="forIcons d-grid gap-2 d-md-block">
+                                            <div class="forIcons d-grid gap-2 d-md-block">
                                                 <a href="" class="btn btn-primary btn-sm text-light" title="update" data-toggle="tooltip">
                                                         View
                                                 </a>
@@ -172,14 +180,15 @@
                                                 <a href="" class="del btn btn-info btn-sm text-light" title="delete" data-toggle="tooltip">
                                                         <i class="fa-solid fa-trash-can icon"></i>
                                                 </a>
-                                            </div> -->
+                                            </div>
                                         </td>
                                 </tr>
-                            </tbody>
+                                
+                              </tbody>
                               <tfoot></tfoot>
-                            </table>
+                            </table> -->
                 </div>
-                <div class="Pagination row ms-0">
+                <!-- <div class="Pagination row ms-0">
                   <div class="col-sm-12 col-md-6">
                     <div class="dataTables_info" id="" role="status" aria-live="polite">
                       Showing 1 to 5 of 10 entries
@@ -195,7 +204,7 @@
                         </ul>
                       </div>
                   </div>  
-                </div>
+                </div> -->
             </div>
         </section>   
     </div>
