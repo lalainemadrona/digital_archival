@@ -1,34 +1,32 @@
 <?php
 // Controls data
     class CollegeContr extends Colleges{
-        private $college;
-        
-        public function __construct($college){
-            $this->college = $college;
+    private $college;
+
+    public function __construct($college)
+    {
+        $this->college = $college;
+    }
+
+    public function setCollege(){
+        if($this->emptyInput() == false){
+            header("location: create.php?error=emptyinputfields&college=$this->college");
+            exit();
         }
 
-        public function handleRequests(){
-            if($this->emptyColleges() == false){
-                header("location: ../index.php?error=collegenotfoundordidnotexist");
-                exit();
-            }
-                $this->getCollege($this->college);
-        }
+        $this->addCollege($this->college);
+    }
 
-        public function emptyColleges(){
-            if(empty($this->college)){
-                $result = false;
-            }
-            else{
-                $result = true;
-            }
-            return $result;
-        }
-
-        // public function showColleges($college){
-        //     // $results = $this->getCollege($college);
-        //     // echo "College: ".$results[0]['college']."College_id:".$results[0]['college_id'];   
-        // }
+    public function emptyInput(){
+        global $result;
+         if(empty($this->college)){
+             $result = false;
+         }
+         else{
+             $result = true;
+         }
+         return $result;
+    }
     }
 
 ?>

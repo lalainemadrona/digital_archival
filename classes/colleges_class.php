@@ -3,32 +3,30 @@
   
   class Colleges extends Database{
 
-        protected function getCollege($college){
-          // $sql = "SELECT * FROM colleges WHERE college = ?";
-          // $stmt = $this->connect()->prepare($sql);
-          // $stmt->execute([$college]);
+        protected function addCollege($college){
+         $stmt = $this->connect()->prepare("INSERT INTO colleges (college) VALUES (?)");
+         if(!$stmt->execute(array($college))){
+              // echo "Oops! Something went wrong. Please try again later.";
+              $stmt = null;
+              header("location: ../create.php?error=stmtfailed");
+              exit();
+         }
+         $stmt = null;
+        }
 
-          // $results = $stmt->fetchAll();
-          // return $results;
-            $stmt = $this->connect()->prepare("SELECT * FROM colleges WHERE college = ?");
-            
-            if(!$stmt->execute(array($college))){
-                // echo "Oops! Something went wrong. Please try again later.";
-                $stmt = null;
-                header("location: ../index.php?error=stmtfailed");
-                exit();
-           }
-           if ($stmt->rowCount() == 0){
-                $stmt = null;
-                header("location: ../index.php?error=nocollegerecordswerefound");
-                exit();
-           }
-           if ($stmt->rowCount() > 0){
-                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                // return $results;
-           }
-           return $results;
-           $stmt = null;
+        protected function getColleges(){
+
+            $stmt = $this->connect()->prepare("SELECT * FROM colleges");
+            $stmt->execute();
+            $colleges = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $total = $stmt->rowCount();
+
+            if($total > 0){
+               return $colleges;
+            }
+            else{
+               return false;
+            } 
         }    
 }
 ?>

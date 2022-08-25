@@ -152,12 +152,7 @@
                   </div>
                 </div>
                 <div class="MFO_Table table-responsive-md row mt-3  mx-2">
-                <?php
-                 
-                 $collegeObj = new CollegesView();
-                 $collegeObj->showCollege("BU College of Education");
-                ?>
-                            <!-- <table class="table table-striped table-bordered border-white" id="">
+                <table class="table table-striped table-bordered border-white" id="">
                                 <thead>
                                     <tr>
                                         <th>#id</th>
@@ -166,27 +161,41 @@
                                     </tr>
                                 </thead>
                               <tbody>
-                                <tr class="1">
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <div class="forIcons d-grid gap-2 d-md-block">
-                                                <a href="" class="btn btn-primary btn-sm text-light" title="update" data-toggle="tooltip">
-                                                        View
-                                                </a>
-                                                <a href="" class="btn btn-info btn-sm text-light" title="update" data-toggle="tooltip">
-                                                        Update
-                                                </a>
-                                                <a href="" class="del btn btn-info btn-sm text-light" title="delete" data-toggle="tooltip">
-                                                        <i class="fa-solid fa-trash-can icon"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                </tr>
-                                
+                <?php
+                 
+                 class CollegesView extends Colleges{
+        
+                  public function showColleges(){
+                      $colleges = $this->getColleges();
+                      foreach($colleges as $college){
+                      echo"<tr>";
+                        echo"<td>".$college['college_id']."</td>";
+                        echo"<td>".$college['college']."</td>";
+                        echo"<td>";
+                        echo'<div class="forIcons d-grid gap-2 d-md-block">';
+                              echo'<a href="" class="btn btn-primary btn-sm text-light mx-1" title="update" data-toggle="tooltip">
+                                      View
+                                    </a>';
+                              echo'<a href="" class="btn btn-info btn-sm text-light mx-1" title="update" data-toggle="tooltip">
+                                      Update
+                                    </a>';
+                              echo'<a href="" class="del btn btn-info btn-sm text-light mx-1" title="delete" data-toggle="tooltip">
+                                      <i class="fa-solid fa-trash-can icon"></i>
+                                  </a>';
+                        echo'</div>';
+                        echo"</td>";
+                      echo"</tr>";
+                    }
+                  }
+                }
+
+                 $collegeObj = new CollegesView();
+                 $collegeObj->showColleges();
+
+                ?>
                               </tbody>
                               <tfoot></tfoot>
-                            </table> -->
+                            </table>
                 </div>
                 <!-- <div class="Pagination row ms-0">
                   <div class="col-sm-12 col-md-6">

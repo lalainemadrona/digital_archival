@@ -1,9 +1,18 @@
 <?php
-    class CollegesView extends Colleges{
+//  class CollegesView extends Colleges{
         
-        public function showCollege($college){
-            $results = $this->getCollege($college);
-            echo "College: ".$results['0']['college']."<br>"."College_id: ".$results['0']['college_id'];
-        }
-    }
+//     public function showColleges(){
+//         $colleges = $this->getColleges();
+//         foreach($colleges as $college){
+//             $col_id = $college["college_id"];
+//             echo $col_id;
+
+//             $col = $college["college"];
+//             echo $col;
+
+//         // echo $college['college_id'].$college['college'];
+//         // echo"<br>";
+//       }
+//     }
+// }
 ?>

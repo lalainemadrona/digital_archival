@@ -1,3 +1,24 @@
+<?php
+  include "../../include/autoloader_inc.php";
+  class CollegeAdd extends Colleges{
+
+   public function setCollege(){
+      if(isset($_POST['addcollege']))
+      {
+        $college = $_POST['college'];
+
+        $addcollege = new CollegeContr($college);
+
+        // running error handles
+        $addcollege->setCollege();
+        // $college = $this->addCollege();
+      }
+    }
+  }
+
+  $collegeObj = new CollegeAdd();
+  $collegeObj->setCollege($_POST);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -131,7 +152,7 @@
                       </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary btn-sm text-decoration-none" type="submit">Submit</button>
+                      <button class="btn btn-primary btn-sm text-decoration-none" name="addcollege" type="submit">Submit</button>
                       <a href="index.php" class="btn btn-secondary btn-sm ms-2">Cancel</a>
                     </div>
                </form>
