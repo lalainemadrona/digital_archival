@@ -1,20 +1,42 @@
 <?php
 // Handles data logic
   
-  class Colleges extends Database{
+   class Colleges extends Database{
 
-        protected function addCollege($college){
-         $stmt = $this->connect()->prepare("INSERT INTO colleges (college) VALUES (?)");
-         if(!$stmt->execute(array($college))){
-              // echo "Oops! Something went wrong. Please try again later.";
+         protected function addCollege($college){
+            $stmt = $this->connect()->prepare("INSERT INTO colleges (college) VALUES (?)");
+            
+            if(!$stmt->execute(array($college))){
               $stmt = null;
               header("location: ../create.php?error=stmtfailed");
               exit();
+            }
+            
+            $stmt = null;
          }
-         $stmt = null;
-        }
 
-        protected function getColleges(){
+         protected function checkCollegeExists($college){
+            $stmt = $this->connect()->prepare("SELECT LOWER (college) FROM colleges WHERE college = ? ");
+           
+            if(!$stmt->execute([strtolower($college)])){
+               $stmt = null;
+               header("location: ../index.php?error=stmtfailed");
+               exit();          
+            }
+
+            global $resultCheck;
+
+            if($stmt->rowCount() > 0){
+               $resultCheck = false;
+            }
+            else{
+               $resultCheck = true;
+            }
+            return $resultCheck;
+
+         }
+
+         protected function getColleges(){
 
             $stmt = $this->connect()->prepare("SELECT * FROM colleges");
             $stmt->execute();
@@ -27,6 +49,6 @@
             else{
                return false;
             } 
-        }    
-}
+         }    
+   }
 ?>

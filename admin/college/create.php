@@ -9,16 +9,29 @@
 
         $addcollege = new CollegeContr($college);
 
-        // running error handles
-        $addcollege->setCollege();
-        // $college = $this->addCollege();
+        // running requests
+        $addcollege->handleRequest();
+
+        //going back to the front page
+        header("location: index.php?error=none");
       }
     }
   }
 
   $collegeObj = new CollegeAdd();
   $collegeObj->setCollege($_POST);
+
+  if(!empty($_GET['error'])){
+    $collegecheck = $_GET['error'];
+      if($collegecheck == "emptyinputfields"){
+        $errormsg = "Please fill out this field.";
+      }
+      elseif($collegecheck == "collegealreadyexists"){
+        $errormsg = "College already exists.";
+      }
+    }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -142,19 +155,28 @@
               </nav>
             </div>
             <div class="container-fluid mt-3 mb-1">
-               <h2 class="mt-5">Add College</h2>
-                <p>Please fill out this form and submit to add college to the database.</p>
-               <form class="row g-3" action="" method="POST">
-                    <div class="col-md-6">
-                      <label for="validationServer01" class="form-label" name="college">College</label>
-                      <input type="text" class="form-control" id="validationServer01" name="college" aria-describedby="validationServer01Feedback"> <!-- can also use require attibut here -->
-                      <div id="validationServer01Feedback" class="invalid-feedback">
-                      </div>
+              <h2 class="mt-5">Add College</h2>
+              <p>Please fill out this form and submit to add college to the database.</p>
+              <form class="row g-3" action="" method="POST">
+                  <div class="col-md-6">
+                    <label for="validationServer01" class="form-label" name="college">College</label>
+                  <?php
+                    if(isset($_GET['college'])){
+                      $college = $_GET['college']; ?>
+                      <input type="text" name="college" class="form-control is-invalid" id="college" value="<?php echo $college; ?>" aria-describedby="validationServer01Feedback">
+                  <?php }
+                    else{ ?>
+                      <input type="text" name="college" class="form-control" id="college" aria-describedby="validationServer01Feedback">
+                  <?php }?>
+                    
+                    <div id="validationServer01Feedback" class="invalid-feedback">
+                      <p class="text-danger my-0"><?php echo $errormsg; ?></p>
                     </div>
-                    <div class="col-12">
-                      <button class="btn btn-primary btn-sm text-decoration-none" name="addcollege" type="submit">Submit</button>
-                      <a href="index.php" class="btn btn-secondary btn-sm ms-2">Cancel</a>
-                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button class="btn btn-primary btn-sm text-decoration-none" name="addcollege" type="submit">Submit</button>
+                    <a href="index.php" class="btn btn-secondary btn-sm ms-2">Cancel</a>
+                  </div>
                </form>
             </div>
         </section>   

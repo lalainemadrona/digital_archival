@@ -161,32 +161,32 @@
                                     </tr>
                                 </thead>
                               <tbody>
-                <?php
-                 
-                 class CollegesView extends Colleges{
+                <?php                 
+                class CollegesView extends Colleges{
         
-                  public function showColleges(){
-                      $colleges = $this->getColleges();
-                      foreach($colleges as $college){
-                      echo"<tr>";
-                        echo"<td>".$college['college_id']."</td>";
-                        echo"<td>".$college['college']."</td>";
-                        echo"<td>";
-                        echo'<div class="forIcons d-grid gap-2 d-md-block">';
-                              echo'<a href="" class="btn btn-primary btn-sm text-light mx-1" title="update" data-toggle="tooltip">
-                                      View
-                                    </a>';
-                              echo'<a href="" class="btn btn-info btn-sm text-light mx-1" title="update" data-toggle="tooltip">
-                                      Update
-                                    </a>';
-                              echo'<a href="" class="del btn btn-info btn-sm text-light mx-1" title="delete" data-toggle="tooltip">
-                                      <i class="fa-solid fa-trash-can icon"></i>
-                                  </a>';
-                        echo'</div>';
-                        echo"</td>";
-                      echo"</tr>";
+                    public function showColleges(){
+                        $colleges = $this->getColleges();
+                        foreach($colleges as $college){ ?>
+                          <tr>
+                            <td><?php echo $college['college_id']; ?></td>
+                            <td><?php echo $college['college']; ?></td>
+                            <td>
+                              <div class="forIcons d-grid gap-2 d-md-block">
+                                <a href="" class="btn btn-primary btn-sm text-light mx-1" title="update" data-toggle="tooltip">
+                                  View
+                                </a>
+                                <a href="" class="btn btn-info btn-sm text-light mx-1" title="update" data-toggle="tooltip">
+                                  Update
+                                </a>
+                                <a href="" class="del btn btn-info btn-sm text-light mx-1" title="delete" data-toggle="tooltip">
+                                  <i class="fa-solid fa-trash-can icon"></i>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                     <?php 
+                     }
                     }
-                  }
                 }
 
                  $collegeObj = new CollegesView();
