@@ -1,6 +1,5 @@
 <?php
-// Handles data logic
-  
+// Handles data logic  
    class Colleges extends Database{
 
          protected function addCollege($college){
@@ -33,22 +32,75 @@
                $resultCheck = true;
             }
             return $resultCheck;
-
+            $stmt = null;
          }
 
          protected function getColleges(){
-
             $stmt = $this->connect()->prepare("SELECT * FROM colleges");
-            $stmt->execute();
-            $colleges = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $total = $stmt->rowCount();
+            
+            if(!$stmt->execute()){
+               $stmt = null;
+               header("location: index.php?error=stmtfailed");
+               exit();
+            }
 
-            if($total > 0){
+            if ($stmt->rowCount() == 0){
+               $stmt = null;
+               header("location: ../index.php?error=nocollegerecords");
+               exit();
+            }
+            
+            $colleges = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            if ($stmt->rowCount() > 0){
                return $colleges;
             }
-            else{
-               return false;
-            } 
-         }    
+
+            $stmt = null;
+         }
+
+         protected function getCollege($college_id){
+            $stmt = $this->connect()->prepare("SELECT * FROM colleges WHERE college_id = ?");
+            
+            if(!$stmt->execute([$college_id])){
+               // echo "Oops! Something went wrong. Please try again later.";
+               $stmt = null;
+               header("location: ../index.php?error=stmtfailed");
+               exit();
+            }
+
+            if ($stmt->rowCount() == 0){
+               $stmt = null;
+               header("location: ../index.php?error=nocollegerecordsfound");
+               exit();
+            }
+
+            $college = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($stmt->rowCount() > 0){
+               return $college;
+            }
+
+            $stmt = null;
+
+            // $stmt->execute([$college_id]);
+            // $college = $stmt->fetch(PDO::FETCH_ASSOC);
+            // $total = $stmt->rowCount();
+
+            // if($total > 0){
+            //    return $college;
+            // }
+            // else{
+            //    return false;
+            // } 
+         }
+         
+         protected function updateCollege(){
+
+         }
+
+         protected function deleteCollege(){
+
+         }
+         
    }
 ?>

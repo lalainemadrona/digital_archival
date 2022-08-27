@@ -4,7 +4,9 @@ class Database{
 
 
     protected function connect(){
-        try{
+        
+        try
+        {
             $db_host = "localhost";
             $db_username = "root";
             $db_password = "";
@@ -14,7 +16,8 @@ class Database{
             return $connection;
             // Set the PDO error mode to exception
             // $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch(PDOException $e){
+        }catch(PDOException $e)
+        {
             die("ERROR: Could not connect. " . $e->getMessage());
         }
         

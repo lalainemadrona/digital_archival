@@ -1,6 +1,21 @@
 <?php
   include "../../include/autoloader_inc.php";
   // include "../../controllers/college_cont.php";
+
+  // class CollegeView extends Colleges{
+
+  //   public function viewCollege(){
+  //      if(isset($_GET['college_id']))
+  //      {
+  //       $college = $this->getCollege($_GET['college_id']);
+         
+  //      }
+  //    }
+  //  }
+  //  $collegeObj->viewCollege($_GET);
+
+  // $college_id = $_GET['college_id'];
+  // $college->getCollege($college_id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,7 +97,7 @@
             </a>
           </li>
           <li class="pageLink">
-              <a href="index.php" class="align-middle text-white text-decoration-none px-auto" title="account settings">
+              <a href="index.php" class="align-middle text-white text-decoration-none px-auto active" title="account settings">
                 <i class="fa-solid fa-gear icon"></i>
                 <span class="text nav-text mx-4">Account Settings</span>
               </a>
@@ -127,121 +142,28 @@
                 <div class="mx-2">
                   <span class="info">Colleges Information</span>
                 </div>
-                <div class="newFile mx-2 ">
-                    <a class="btn btn-primary btn-sm text-decoration-none" href="create.php" role="button">
-                      <i class="fa-solid fa-plus"></i>
-                      Add College
-                    </a>
-                </div>
             </div>
-
-            <div class="container-fluid">
-                <div class="ShowEn row mt-3 ms-0">
-                  <div class="col-sm-12 col-md-6">
-                    <div class="input-group">
-                        <label class="me-2" for="">Show</label>
-                      <div class="col-sm-2">
-                        <select class="form-select form-select-sm" name="length" id="">
-                          <option value="5">5</option>
-                          <option value="10">10</option>
-                          <option value="20">20</option>
-                        </select>
-                      </div>
-                        <label class="ms-2" for="">Entries</label>
-                      </div>
-                  </div>
-                </div>
-                <div class="MFO_Table table-responsive-md row mt-3  mx-2">
-                <table class="table table-striped table-bordered border-white" id="">
-                                <thead>
-                                    <tr>
-                                        <th>#id</th>
-                                        <th>College</th>
-                                        <th>Actions</th> 
-                                    </tr>
-                                </thead>
-                              <tbody>
-                <?php                 
-                class CollegesView extends Colleges{
-        
-                    public function showColleges(){
-                        $colleges = $this->getColleges();
-                        foreach($colleges as $college){ ?>
-                          <tr>
-                            <td><?php echo $college['college_id']; ?></td>
-                            <td><?php echo $college['college']; ?></td>
-                            <td>
-                              <div class="forIcons d-grid gap-2 d-md-block">
-                                <a href="view.php?college_id=<?= $college['college_id'];?>" class="btn btn-primary btn-sm text-light mx-1" title="update" data-toggle="tooltip">
-                                  View
-                                </a>
-                                <a href="" class="btn btn-info btn-sm text-light mx-1" title="update" data-toggle="tooltip">
-                                  Update
-                                </a>
-                                <a href="" class="del btn btn-info btn-sm text-light mx-1" title="delete" data-toggle="tooltip">
-                                  <i class="fa-solid fa-trash-can icon"></i>
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                     <?php 
-                     }
-                    }
+            <div class="mx-2">
+            <?php
+              class CollegeView extends Colleges{
+                public function viewCollege(){
+                  if(isset($_GET['college_id']))
+                  {
+                    $college_id = $_GET['college_id'];
+                    $college = $this->getCollege($college_id); ?>
+                    <span class="info"><?php echo ($college['college_id']); ?></span>
+                    <span class="info"><?php echo ($college['college']); ?></span>
+            <?php }
                 }
-
-                 $collegeObj = new CollegesView();
-                 $collegeObj->showColleges();
-
-                ?>
-                              </tbody>
-                              <tfoot></tfoot>
-                            </table>
-                </div>
-                <!-- <div class="Pagination row ms-0">
-                  <div class="col-sm-12 col-md-6">
-                    <div class="dataTables_info" id="" role="status" aria-live="polite">
-                      Showing 1 to 5 of 10 entries
-                    </div>
-                  </div>
-                  
-                  <div class="col-sm-12 col-md-6">
-                      <div class="me-1" aria-label="Page navigation example" id="">
-                        <ul class="pagination justify-content-end" id="mfo">
-                          <li class="page-item previous disabled"><a class="page-link" href="#" style="color: thistle;">Previous</a></li>
-                          <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                      </div>
-                  </div>  
-                </div> -->
+              }
+              
+              $collegeObj = new CollegeView();
+              $collegeObj->viewCollege();
+              
+              ?>
             </div>
         </section>   
     </div>
-    <!-- Modal for Update btn-->
-    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content update">
-          <form class="mx-3">
-          <div class="modal-header  py-4">
-            <h5 class="modal-title" id="exampleModalLabel">Update College</h5>
-          </div>
-          <div class="modal-body">
-            
-              <div class="row mb-2 g-4">
-                <div class="col-sm mb-2">
-                  <label for="floatingCollege" class="form-label-sm">College</label>
-                  <input type="text" class="form-control form-control-sm" id="floatingCollege" placeholder="" value="John" required="true">
-                </div>
-              </div>
-            
-          </div>
-          <div class="modal-footer py-4">
-            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn updateBtn btn-sm btn-primary">Update</button>
-          </div>
-          </form>
-        </div>
-      </div>
-    </div>
+   
 </body>
 </html>
